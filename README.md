@@ -6,7 +6,9 @@
   
 ## ↓↓↓　を生成します。  
 ![変換後のGIF](https://github.com/misaki01/SpinTheImage/blob/image/%E9%A3%9F%E3%81%B9%E7%89%A9_%E3%81%99%E3%81%97.gif)  
-
+  
+（寿司を回したかったから作ったんや・・・）
+  
 # 機能説明
 【作成中】
 
