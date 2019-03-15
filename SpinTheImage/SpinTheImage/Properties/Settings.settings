@@ -1,0 +1,75 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SpinTheImage.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ClientLocation" Description="クライアントの初期位置" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 17</Value>
+    </Setting>
+    <Setting Name="ClientSize" Description="クライアントの初期サイズ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">996, 777</Value>
+    </Setting>
+    <Setting Name="MainFormMenuItemOutputPng" Description="メインメニューのPNGファイル出力有無のチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MainFormMenuItemOptionChangeBackgroundOfImageAreaWhite" Description="メインメニューの画像エリア背景‗白（黒とトリグ）のチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MainFormMenuItemOptionChangeBackgroundOfImageAreaBlack" Description="メインメニューの画像エリア背景‗黒（白とトリグ）のチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MainFormPlLeftWidth" Description="左右を分けるスプリットの位置" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">561</Value>
+    </Setting>
+    <Setting Name="MainFormTxtFrameRate" Description="フレームレートの値" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="MainFormTxtSecound" Description="秒数の値" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="MainFormTxtInitialSpeed" Description="初速の値" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">79</Value>
+    </Setting>
+    <Setting Name="MainFormTxtAcceleteRate" Description="加速度の値" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">257</Value>
+    </Setting>
+    <Setting Name="MainFormTxtRoteteParameterFile" Description="回転角度のリストパスの入力値" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MainFormRdoChangeCanvasChkCenter" Description="キャンパスの中心位置変更のチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MainFormRdoChangeCanvasChkCenterX" Description="キャンパスの中心位置の変更位置_X" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MainFormRdoChangeCanvasChkCenterY" Description="キャンパスの中心位置の変更位置_Y" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MainFormRdoChangeCanvasSizeNoChange" Description="キャンパスサイズ拡大しないのチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MainFormRdoChangeCanvasSizeDiagonalSize" Description="キャンパスサイズを対角線で拡大のチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MainFormRdoChangeCanvasSizeSelectSize" Description="キャンパスサイズを指定のサイズにするのチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MainFormTxtChangeCanvasSizeSelectSizeWidth" Description="キャンパスサイズを指定のサイズにするの幅の値" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">256</Value>
+    </Setting>
+    <Setting Name="MainFormTxtChangeCanvasSizeSelectSizeHeight" Description="キャンパスサイズを指定のサイズにするの高さの値" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">256</Value>
+    </Setting>
+    <Setting Name="MainFormChkRoop" Description="ループするかのチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MainFormTxtRoopCount" Description="ループ回数の値" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="MainFormChkRoopInfinite" Description="ループを無限にするのチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MainFormChkRotateToEnd" Description="最後は元の画像の角度でおわるかのチェック有無" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CreateGifErrorNotGenerateDirectoryName" xml:space="preserve">
+    <value>Gifを作成する過程で生成したPngファイルを保存するディレクトリ名の生成に失敗しました。</value>
+    <comment>同じ名前のディレクトリが存在するといった理由で保存先のディレクトリ名が生成できなかった場合のエラー処理に使用</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DragDrop_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Image\DragDrop_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DragDrop_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Image\DragDrop_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Enable_False" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Image\Enable_False.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MenuItemRestoreDefaultSettingsMessage" xml:space="preserve">
+    <value>全ての設定をリセットしますがよろしいですか？</value>
+    <comment>メインメニュー‗デフォルト設定に戻す押下時の確認メッセージ</comment>
+  </data>
+  <data name="PictureBoxPreviewNoDataErrorMessage" xml:space="preserve">
+    <value>画像ファイルをドラッグ＆ドロップしてください。</value>
+    <comment>画像エリアに画像が設定されていない状態で画像を使用する処理を行った場合に発生するメッセージ</comment>
+  </data>
+  <data name="RoteteParameterFileErrorIOException" xml:space="preserve">
+    <value>データが読み込みできません。</value>
+    <comment>回転パラメータファイルの読み込みエラー‗IOExceptionが発生した場合</comment>
+  </data>
+  <data name="RoteteParameterFileErrorNoData" xml:space="preserve">
+    <value>データが存在しません。</value>
+    <comment>回転パラメータファイルの読み込みエラー‗データがなかった場合</comment>
+  </data>
+  <data name="RoteteParameterFileErrorNotFloat" xml:space="preserve">
+    <value>下記の行番号のデータが数値に変換できませんでした。{0}</value>
+    <comment>回転パラメータファイルの読み込みエラー‗flaotに変換できなかった場合　{0}：エラーが発生した行番号</comment>
+  </data>
+  <data name="RoteteParameterFileErrorNotFloatLineNum" xml:space="preserve">
+    <value>
+{0}行目</value>
+    <comment>回転パラメータファイルの読み込みエラー‗flaotに変換できなかった場合に表示する行番号のフォーマット　{0}：行番号（数値）</comment>
+  </data>
+  <data name="RoteteParameterFileSelectDialogFilter" xml:space="preserve">
+    <value>テキストファイル(*.TXT;*.txt)|*.TXT;*.txt|すべてのファイル(*.*)|*.*</value>
+    <comment>回転パラメータファイルの選択ダイアログに使うフィルターの設定</comment>
+  </data>
+  <data name="RoteteParameterFileSelectDialogTitle" xml:space="preserve">
+    <value>回転パラメータに使用するテキストファイルを選択してください。</value>
+    <comment>回転パラメータファイルの選択ダイアログのタイトル</comment>
+  </data>
+  <data name="RunProcessEndMessage" xml:space="preserve">
+    <value>処理が終了しました。</value>
+    <comment>処理が終了した時に表示するメッセージ</comment>
+  </data>
+  <data name="RunProcessStopMessage" xml:space="preserve">
+    <value>処理を中断しました。</value>
+    <comment>処理を中断した時に表示するメッセージ</comment>
+  </data>
+  <data name="RunSaveFileDialogFilter" xml:space="preserve">
+    <value>Gifファイル(*.GIF;*.gif)|*.GIF;*.gif|すべてのファイル(*.*)|*.*</value>
+    <comment>作成したGifの保存先を選択するダイアログに使うフィルター設定</comment>
+  </data>
+  <data name="RunSaveFileDialogTitle" xml:space="preserve">
+    <value>保存先を選択してください。</value>
+    <comment>作成したGifの保存先を選択するダイアログのタイトル</comment>
+  </data>
+</root>
