@@ -1,9 +1,10 @@
 # SpinTheImage の概要【開発中】
 画像を回転させたGifに変換するツールです。  
-　↓↓↓　から  
+  
+## ↓↓↓　から  
 ![元の画像](https://github.com/misaki01/SpinTheImage/blob/image/%E9%A3%9F%E3%81%B9%E7%89%A9_%E3%81%99%E3%81%97.jpg)  
   
-　↓↓↓　を生成します。  
+## ↓↓↓　を生成します。  
 ![変換後のGIF](https://github.com/misaki01/SpinTheImage/blob/image/%E9%A3%9F%E3%81%B9%E7%89%A9_%E3%81%99%E3%81%97.gif)  
 
 # 機能説明
