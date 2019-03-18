@@ -1111,7 +1111,6 @@
             this.TabPageCombineImages.Controls.Add(this.CombineImagesControl);
             this.TabPageCombineImages.Location = new System.Drawing.Point(4, 30);
             this.TabPageCombineImages.Name = "TabPageCombineImages";
-            this.TabPageCombineImages.Padding = new System.Windows.Forms.Padding(3);
             this.TabPageCombineImages.Size = new System.Drawing.Size(972, 668);
             this.TabPageCombineImages.TabIndex = 1;
             this.TabPageCombineImages.Text = "画像データ連結";
@@ -1122,10 +1121,11 @@
             this.CombineImagesControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.CombineImagesControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.CombineImagesControl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.CombineImagesControl.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.CombineImagesControl.IsRuning = false;
-            this.CombineImagesControl.Location = new System.Drawing.Point(3, 3);
+            this.CombineImagesControl.Location = new System.Drawing.Point(0, 0);
             this.CombineImagesControl.Name = "CombineImagesControl";
-            this.CombineImagesControl.Size = new System.Drawing.Size(561, 662);
+            this.CombineImagesControl.Size = new System.Drawing.Size(561, 668);
             this.CombineImagesControl.TabIndex = 0;
             // 
             // MainForm

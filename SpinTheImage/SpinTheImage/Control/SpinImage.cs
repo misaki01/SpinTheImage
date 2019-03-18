@@ -593,28 +593,34 @@
                 throw new ArgumentNullException(nameof(pngDirectoryPath));
             }
 
-            // Gifファイルの保存先のファイルパスを生成する
-            // 保存先パスから拡張子情報を取得し、拡張子情報がgifの拡張子か判定する
-            string saveGifFilePath;
-            string extension = Path.GetExtension(savePath);
-            if (!extension.ToUpperInvariant().Equals(".gif".ToUpperInvariant()))
+            // Gifファイルの保存先のファイルパスを設定する
+            string saveGifFilePath = savePath;
+
+            // プレビューモードでない場合
+            // 拡張子が gif か判定し、gif でなければ .gif を追加する
+            if (!isPreview)
             {
-                // 拡張子がGifの形式でない場合、
-                // 生成したGifの保存先のパスに「.gif」の拡張子を追加したものをGifのファイルパスとする
-                saveGifFilePath = savePath + ".gif";
-            }
-            else
-            {
-                // 拡張子がGifの形式の場合、
-                // 生成したGifの保存先のパスをGifのファイルパスとする
-                saveGifFilePath = savePath;
+                string extension = Path.GetExtension(savePath);
+                if (!extension.ToUpperInvariant().Equals(".gif".ToUpperInvariant()))
+                {
+                    // 拡張子がGifの形式でない場合、
+                    // Gifの保存先のパスに「.gif」の拡張子を追加する
+                    saveGifFilePath = savePath + ".gif";
+                }
             }
 
-            // Gifエンコーダーを生成
-            using (GifEncoder gifEncoder = new GifEncoder(saveGifFilePath, isRoop, roopCount))
+            // Gifエンコーダーを宣言
+            GifEncoder gifEncoder = null;
+            try
             {
-                // メモリ節約のため都度保存モードを ON にする
-                gifEncoder.IsEachTimeSave = true;
+                // プレビューモードでない場合、Gifエンコーダーを生成する
+                if (!isPreview)
+                {
+                    gifEncoder = new GifEncoder(saveGifFilePath, isRoop, roopCount);
+
+                    // メモリ節約のため都度保存モードを ON にする
+                    gifEncoder.IsEachTimeSave = true;
+                }
 
                 // ループ処理で使用するストップウォッチオブジェクトを生成
                 Stopwatch stopwatch = new Stopwatch();
@@ -682,7 +688,12 @@
                 progressAction?.Invoke(90);
 
                 // 生成したGifデータの保存を行う
-                gifEncoder.Save();
+                gifEncoder?.Save();
+            }
+            finally
+            {
+                // Gifエンコーダを破棄する
+                gifEncoder?.Dispose();
             }
         }
 
