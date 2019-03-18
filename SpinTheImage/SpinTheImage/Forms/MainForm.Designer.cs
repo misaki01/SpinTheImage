@@ -2,15 +2,15 @@
 {
     partial class MainForm
     {
-        /// <summary>
-        /// Required designer variable.
+        /// <summary> 
+        /// 必要なデザイナー変数です。
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
+        /// <summary> 
+        /// 使用中のリソースをすべてクリーンアップします。
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">マネージド リソースを破棄する場合は true を指定し、その他の場合は false を指定します。</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,11 +20,11 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region コンポーネント デザイナーで生成されたコード
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// <summary> 
+        /// デザイナー サポートに必要なメソッドです。このメソッドの内容を 
+        /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent()
         {
@@ -104,6 +104,8 @@
             this.TxtFrameRate = new System.Windows.Forms.NumericUpDown();
             this.LbFrameRate = new System.Windows.Forms.Label();
             this.LbRoteteParameter = new System.Windows.Forms.Label();
+            this.TabPageCombineImages = new System.Windows.Forms.TabPage();
+            this.CombineImagesControl = new SpinTheImage.Forms.CombineImagesControl();
             this.MenuMain.SuspendLayout();
             this.TabControl.SuspendLayout();
             this.TabPageRotate.SuspendLayout();
@@ -132,6 +134,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TxtInitialSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TxtSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TxtFrameRate)).BeginInit();
+            this.TabPageCombineImages.SuspendLayout();
             this.SuspendLayout();
             // 
             // MenuMain
@@ -234,6 +237,7 @@
             // TabControl
             // 
             this.TabControl.Controls.Add(this.TabPageRotate);
+            this.TabControl.Controls.Add(this.TabPageCombineImages);
             this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TabControl.Location = new System.Drawing.Point(0, 36);
             this.TabControl.Name = "TabControl";
@@ -474,7 +478,7 @@
             // 
             this.TxtRoopCount.Location = new System.Drawing.Point(110, 3);
             this.TxtRoopCount.Maximum = new decimal(new int[] {
-            65535,
+            32767,
             0,
             0,
             0});
@@ -488,7 +492,7 @@
             this.TxtRoopCount.TabIndex = 1;
             this.TxtRoopCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.TxtRoopCount.Value = new decimal(new int[] {
-            65535,
+            32767,
             0,
             0,
             0});
@@ -916,10 +920,10 @@
             // TxtRoteteParameterFile
             // 
             this.TxtRoteteParameterFile.AllowDrop = true;
-            this.TxtRoteteParameterFile.Location = new System.Drawing.Point(11, 37);
+            this.TxtRoteteParameterFile.Location = new System.Drawing.Point(10, 37);
             this.TxtRoteteParameterFile.Name = "TxtRoteteParameterFile";
             this.TxtRoteteParameterFile.ReadOnly = true;
-            this.TxtRoteteParameterFile.Size = new System.Drawing.Size(325, 27);
+            this.TxtRoteteParameterFile.Size = new System.Drawing.Size(326, 27);
             this.TxtRoteteParameterFile.TabIndex = 1;
             this.TxtRoteteParameterFile.Text = "ファイル選択 又は ドラッグ&ドロップ";
             this.TxtRoteteParameterFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.RoteteParameterFile_DragDrop);
@@ -928,7 +932,7 @@
             // LbRoteteParameterFile
             // 
             this.LbRoteteParameterFile.AutoSize = true;
-            this.LbRoteteParameterFile.Location = new System.Drawing.Point(7, 11);
+            this.LbRoteteParameterFile.Location = new System.Drawing.Point(10, 11);
             this.LbRoteteParameterFile.Name = "LbRoteteParameterFile";
             this.LbRoteteParameterFile.Size = new System.Drawing.Size(492, 20);
             this.LbRoteteParameterFile.TabIndex = 0;
@@ -1102,6 +1106,28 @@
             this.LbRoteteParameter.TabIndex = 0;
             this.LbRoteteParameter.Text = "回転に関するパラメータ";
             // 
+            // TabPageCombineImages
+            // 
+            this.TabPageCombineImages.Controls.Add(this.CombineImagesControl);
+            this.TabPageCombineImages.Location = new System.Drawing.Point(4, 30);
+            this.TabPageCombineImages.Name = "TabPageCombineImages";
+            this.TabPageCombineImages.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageCombineImages.Size = new System.Drawing.Size(972, 668);
+            this.TabPageCombineImages.TabIndex = 1;
+            this.TabPageCombineImages.Text = "画像データ連結";
+            // 
+            // CombineImagesControl
+            // 
+            this.CombineImagesControl.AutoScroll = true;
+            this.CombineImagesControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.CombineImagesControl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.CombineImagesControl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.CombineImagesControl.IsRuning = false;
+            this.CombineImagesControl.Location = new System.Drawing.Point(3, 3);
+            this.CombineImagesControl.Name = "CombineImagesControl";
+            this.CombineImagesControl.Size = new System.Drawing.Size(561, 662);
+            this.CombineImagesControl.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 20F);
@@ -1158,6 +1184,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.TxtInitialSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TxtSeconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TxtFrameRate)).EndInit();
+            this.TabPageCombineImages.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1241,5 +1268,7 @@
         private System.Windows.Forms.NumericUpDown TxtFrameRate;
         private System.Windows.Forms.Label LbFrameRate;
         private System.Windows.Forms.Label LbRoteteParameter;
+        private System.Windows.Forms.TabPage TabPageCombineImages;
+        private CombineImagesControl CombineImagesControl;
     }
 }

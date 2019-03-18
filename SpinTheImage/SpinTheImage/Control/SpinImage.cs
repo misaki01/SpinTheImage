@@ -21,14 +21,6 @@
         #region クラス変数・定数
 
         /// <summary>
-        /// Gifのディレイの単位
-        /// </summary>
-        /// <remarks>
-        /// Gifのディレイの設定は1/100秒単位で行うため100を指定
-        /// </remarks>
-        private const int GifDelayUnit = 100;
-
-        /// <summary>
         /// Pngファイルを保存するフォルダの名称 {0}：年月日時分秒、{1}：通番（年月日時分秒が重複した場合に付与する通番）
         /// </summary>
         /// <remarks>
@@ -43,7 +35,7 @@
         #region プロパティ
 
         /// <summary>
-        /// 中断フラグ
+        /// 中断フラグを取得・設定する
         /// 処理を途中で中断する場合は：True、中断しない場合は：False
         /// </summary>
         private static bool IsStop { get; set; } = true;
@@ -465,10 +457,10 @@
             float angle = 0;
 
             // フレームレートからディレイを計算
-            int delay = GifDelayUnit / frameRate;
+            int delay = GifEncoder.GifDelayUnit / frameRate;
 
             // 計算したディレイの余りを次の計算に使用するため保持
-            int remainder = GifDelayUnit % frameRate;
+            int remainder = GifEncoder.GifDelayUnit % frameRate;
 
             // 始めの画像に対する情報を追加
             rotateInfoList.Add(new RotateInfo(angle, (short)delay));
@@ -478,15 +470,15 @@
             {
                 // 回転量、ディレイを計算し追加する
                 angle = (angle + movingAngle) % 360;
-                delay = (GifDelayUnit + remainder) / frameRate;
-                remainder = (GifDelayUnit + remainder) % frameRate;
+                delay = (GifEncoder.GifDelayUnit + remainder) / frameRate;
+                remainder = (GifEncoder.GifDelayUnit + remainder) % frameRate;
                 rotateInfoList.Add(new RotateInfo(angle, (short)delay));
             }
 
             // 最後まで回転するか（元の位置に戻るまで回転するか）のフラグが立っている場合、移動量0のデータを追加する
             if (isRotateToEnd)
             {
-                delay = (GifDelayUnit + remainder) / frameRate;
+                delay = (GifEncoder.GifDelayUnit + remainder) / frameRate;
                 rotateInfoList.Add(new RotateInfo(0, (short)delay));
             }
 
@@ -605,8 +597,7 @@
             // 保存先パスから拡張子情報を取得し、拡張子情報がgifの拡張子か判定する
             string saveGifFilePath;
             string extension = Path.GetExtension(savePath);
-            if (!string.Equals(extension, ".gif")
-                && !string.Equals(extension, ".GIF"))
+            if (!extension.ToUpperInvariant().Equals(".gif".ToUpperInvariant()))
             {
                 // 拡張子がGifの形式でない場合、
                 // 生成したGifの保存先のパスに「.gif」の拡張子を追加したものをGifのファイルパスとする

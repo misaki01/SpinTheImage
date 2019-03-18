@@ -117,6 +117,47 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CombineImagesDirectoryErrorIncorrectPath" xml:space="preserve">
+    <value>選択されたフォルダの名称が不正です。
+再度、画像データが存在するフォルダを選択してください。</value>
+    <comment>実行時に設定された画像ファイルの格納フォルダのパスが不正だった時に表示するメッセージ</comment>
+  </data>
+  <data name="CombineImagesDirectoryErrorNotAccess" xml:space="preserve">
+    <value>選択されたフォルダにアクセスできませんでした。
+再度、画像データが存在するフォルダを選択してください。</value>
+    <comment>実行時に設定された画像ファイルの格納フォルダにアクセスできなかった時に表示するメッセージ</comment>
+  </data>
+  <data name="CombineImagesDirectoryErrorNotImage" xml:space="preserve">
+    <value>選択されたフォルダに画像データが存在しません。
+画像データが存在するフォルダを選択してください。</value>
+    <comment>選択したフォルダの中に画像データが存在しない時に表示するメッセージ</comment>
+  </data>
+  <data name="CombineImagesDirectoryNotSelect" xml:space="preserve">
+    <value>画像データを格納しているフォルダが選択されていません。
+画像データが格納されているフォルダを選択してください。</value>
+    <comment>実行時に画像データ格納フォルダが選択されていない時に表示するメッセージ</comment>
+  </data>
+  <data name="CombineImagesDirectorySelectDialogTitle" xml:space="preserve">
+    <value>画像データを格納しているフォルダを選択してください。</value>
+    <comment>画像データを格納しているフォルダの選択ダイアログのタイトル</comment>
+  </data>
+  <data name="CombineImagesGifFileErrorNoGif" xml:space="preserve">
+    <value>選択されたGifファイルが存在しません。削除または移動された可能性があります。
+再度選択するか、クリアをしてください。</value>
+    <comment>実行時に設定された追記元のGifファイルが存在しない時に表示するメッセージ</comment>
+  </data>
+  <data name="CombineImagesGifFileErrorNotGif" xml:space="preserve">
+    <value>Gifファイルを選択してください。</value>
+    <comment>追記元Gifファイルの選択ダイアログでGifファイルを選択しなかった場合に表示するメッセージ</comment>
+  </data>
+  <data name="CombineImagesGifFileSelectDialogFilter" xml:space="preserve">
+    <value>Gifファイル(*.GIF;*.gif)|*.GIF;*.gif|すべてのファイル(*.*)|*.*</value>
+    <comment>追記元Gifファイルの選択ダイアログに使うフィルターの設定</comment>
+  </data>
+  <data name="CombineImagesGifFileSelectDialogTitle" xml:space="preserve">
+    <value>追記の元となるGifファイルを選択してください。</value>
+    <comment>追記元Gifファイルの選択ダイアログのタイトル</comment>
+  </data>
   <data name="CreateGifErrorNotGenerateDirectoryName" xml:space="preserve">
     <value>Gifを作成する過程で生成したPngファイルを保存するディレクトリ名の生成に失敗しました。</value>
     <comment>同じ名前のディレクトリが存在するといった理由で保存先のディレクトリ名が生成できなかった場合のエラー処理に使用</comment>
@@ -167,6 +208,10 @@
   <data name="RunProcessEndMessage" xml:space="preserve">
     <value>処理が終了しました。</value>
     <comment>処理が終了した時に表示するメッセージ</comment>
+  </data>
+  <data name="RunProcessErrorNoRoteteImage" xml:space="preserve">
+    <value>回転させる画像が設定されていません。画像ファイルをドラッグ＆ドロップしてください。</value>
+    <comment>実行時に回転対象の画像データが存在しない場合に表示するメッセージ</comment>
   </data>
   <data name="RunProcessStopMessage" xml:space="preserve">
     <value>処理を中断しました。</value>

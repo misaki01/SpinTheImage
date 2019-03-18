@@ -26,27 +26,18 @@
     /// </summary>
     public partial class MainForm : Form
     {
-        #region クラス定数
-
-        /// <summary>
-        /// 画像ファイルのドラッグ＆ドロップにおいて許可する拡張子（カンマ区切り）
-        /// </summary>
-        private const string AllowExtensionImage = ".png,.PNG,.bmp,.BMP,.jpg,.JPG";
+        #region クラス変数・定数
 
         /// <summary>
         /// テキストファイルのドラッグ＆ドロップにおいて許可する拡張子（カンマ区切り）
         /// </summary>
-        private const string AllowExtensionText = ".txt,.Txt";
+        private const string AllowExtensionText = ".txt";
 
         /// <summary>
         /// 回転パラメータファイルテキストボックスの初期値を保持する領域
         /// （「ファイル選択 又は ドラッグ＆ドロップ」という文言を保持）
         /// </summary>
         private readonly string _initializeRoteteParameterFileText;
-
-        #endregion
-
-        #region クラス変数
 
         /// <summary>
         /// 入力した画像データ
@@ -146,8 +137,10 @@
             }
 
             // 拡張子チェック
-            string extension = Path.GetExtension(filePath);
-            if (!allowExtensionText.Split(',').Any(s => s == extension))
+            string extension = Path.GetExtension(filePath).ToUpperInvariant();
+            Console.WriteLine(Directory.Exists(filePath));
+            if (!allowExtensionText.Split(',').Any(allowExtension
+                => allowExtension.ToUpperInvariant().Equals(extension)))
             {
                 return false;
             }
@@ -162,11 +155,8 @@
         /// <param name="inputData">
         /// ドラッグされたデータオブジェクト
         /// </param>
-        /// <param name="allowExtensionImage">
-        /// 画像ファイルのドラッグ＆ドロップにおいて許可する拡張子（カンマ区切り）
-        /// </param>
         /// <returns>判定結果</returns>
-        private static bool IsSingleImageFile(IDataObject inputData, string allowExtensionImage)
+        private static bool IsSingleImageFile(IDataObject inputData)
         {
             // 単一のファイルか判定
             if (!IsSingleFile(inputData, out string filePath))
@@ -174,24 +164,8 @@
                 return false;
             }
 
-            // 拡張子チェック
-            string extension = Path.GetExtension(filePath);
-            if (!allowExtensionImage.Split(',').Any(s => s == extension))
-            {
-                return false;
-            }
-
-            // Bitmapで読み込めるか判定
-            try
-            {
-                using (Bitmap bmp = new Bitmap(filePath))
-                {
-                    // 読み込むだけでなにもしない
-                }
-            }
-            catch (Exception ex)
-                when (ex is ArgumentException
-                    || ex is FileNotFoundException)
+            // 画像が読み込めるか判定
+            if (!ImageTransform.CanImageLoad(filePath))
             {
                 // 画像データでない場合は False を返す
                 return false;
@@ -561,7 +535,7 @@
         /// <param name="e">イベントデータ</param>
         private void BtRoteteParameterFileClear_Click(object sender, EventArgs e)
         {
-            // テキストボックスのパスをデフォルトの値に戻る
+            // テキストボックスをデフォルトの値に戻す
             TxtRoteteParameterFile.Text = _initializeRoteteParameterFileText;
 
             // 画面の表示設定を行う
@@ -780,6 +754,7 @@
             // 画像が設定されていない場合はメッセージを表示し処理しない
             if (!CheckExistsImageData())
             {
+                MessageBox.ShowAttention(this, Resources.RunProcessErrorNoRoteteImage);
                 return;
             }
 
@@ -893,7 +868,7 @@
         private void PictureBoxPreview_DragEnter(object sender, DragEventArgs e)
         {
             // ドラッグされているデータが単一の画像ファイルか判定し、ドロップ効果の設定を行う
-            e.Effect = IsSingleImageFile(e.Data, AllowExtensionImage)
+            e.Effect = IsSingleImageFile(e.Data)
                 ? DragDropEffects.Move : DragDropEffects.None;
         }
 
@@ -904,9 +879,16 @@
         /// <param name="e">イベントデータ</param>
         private void PictureBoxPreview_DragDrop(object sender, DragEventArgs e)
         {
-            // ドロップされた画像を読み込み
-            using (Bitmap image = new Bitmap(GetDropFilePaths(e.Data)[0]))
+            Image image = null;
+            try
             {
+                // ドロップされた画像を読み込み
+                if (!ImageTransform.TryImageLoad(GetDropFilePaths(e.Data)[0], out image))
+                {
+                    // 画像データが読み込めない場合はなにもしない
+                    return;
+                }
+
                 // 読み込んだ画像をプロパティ、コントロールに設定する
                 Size size = image.Size;
                 ImageData = new Bitmap(image, image.Size);
@@ -943,6 +925,11 @@
                         numericUpCountrol.Value = numericUpCountrol.Maximum;
                     }
                 }
+            }
+            finally
+            {
+                // 画像データを破棄
+                image?.Dispose();
             }
 
             // 画面の表示設定を行う
