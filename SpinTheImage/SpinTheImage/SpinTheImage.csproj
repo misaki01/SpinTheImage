@@ -116,6 +116,9 @@
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -162,6 +165,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Icon\icon.pdn" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -196,6 +200,24 @@
       <Project>{ffb01105-5f72-41df-97a9-b8fd513f1cb2}</Project>
       <Name>MisaCommon</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon\icon.ico" />
+    <Content Include="Icon\icon.png" />
+    <Content Include="Icon\icon_16.png" />
+    <Content Include="Icon\icon_20.png" />
+    <Content Include="Icon\icon_24.png" />
+    <Content Include="Icon\icon_256.png" />
+    <Content Include="Icon\icon_30.png" />
+    <Content Include="Icon\icon_32.png" />
+    <Content Include="Icon\icon_36.png" />
+    <Content Include="Icon\icon_40.png" />
+    <Content Include="Icon\icon_48.png" />
+    <Content Include="Icon\icon_60.png" />
+    <Content Include="Icon\icon_64.png" />
+    <Content Include="Icon\icon_72.png" />
+    <Content Include="Icon\icon_80.png" />
+    <Content Include="Icon\icon_96.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

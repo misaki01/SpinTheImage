@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MenuMain = new System.Windows.Forms.MenuStrip();
             this.MenuItemOption = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemOutputPng = new System.Windows.Forms.ToolStripMenuItem();
@@ -1136,6 +1137,7 @@
             this.Controls.Add(this.TabControl);
             this.Controls.Add(this.MenuMain);
             this.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(100, 100);
             this.MainMenuStrip = this.MenuMain;
             this.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
