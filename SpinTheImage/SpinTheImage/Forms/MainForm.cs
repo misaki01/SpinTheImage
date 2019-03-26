@@ -811,6 +811,9 @@
             // プレビューモードを OFF にする
             IsPreviewMode = false;
 
+            // 回転数をリセットする
+            RotateCount = 0;
+
             // 実行中フラグを ON にする
             IsRuning = true;
 
