@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ClientLocation" Description="クライアントの初期位置" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 17</Value>
+      <Value Profile="(Default)">100, 100</Value>
     </Setting>
     <Setting Name="ClientSize" Description="クライアントの初期サイズ" Provider="MisaCommon.Configurations.CustomUserConfig.UserSettingsProvider" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">996, 777</Value>

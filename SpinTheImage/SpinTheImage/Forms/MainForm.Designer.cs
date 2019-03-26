@@ -1126,7 +1126,7 @@
             this.CombineImagesControl.IsRuning = false;
             this.CombineImagesControl.Location = new System.Drawing.Point(0, 0);
             this.CombineImagesControl.Name = "CombineImagesControl";
-            this.CombineImagesControl.Size = new System.Drawing.Size(561, 668);
+            this.CombineImagesControl.Size = new System.Drawing.Size(561, 676);
             this.CombineImagesControl.TabIndex = 0;
             // 
             // MainForm
@@ -1136,9 +1136,10 @@
             this.ClientSize = new System.Drawing.Size(980, 738);
             this.Controls.Add(this.TabControl);
             this.Controls.Add(this.MenuMain);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::SpinTheImage.Properties.Settings.Default, "ClientLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Location = new System.Drawing.Point(100, 100);
+            this.Location = global::SpinTheImage.Properties.Settings.Default.ClientLocation;
             this.MainMenuStrip = this.MenuMain;
             this.Margin = new System.Windows.Forms.Padding(7, 5, 7, 5);
             this.Name = "MainForm";

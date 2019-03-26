@@ -1023,10 +1023,10 @@
         /// <param name="isConstructor">コンストラクタからの呼び出しかどうか</param>
         private void InitializeControlByUserConfig(bool isConstructor)
         {
-            // クライアントの位置とサイズ（コンストラクタのみの処理）
+            // クライアントのサイズ（コンストラクタのみの処理）
             if (isConstructor)
             {
-                Location = Settings.Default.ClientLocation;
+                // ロケーションについてはDataBindings機能を利用して設定
                 Size = Settings.Default.ClientSize;
             }
 
