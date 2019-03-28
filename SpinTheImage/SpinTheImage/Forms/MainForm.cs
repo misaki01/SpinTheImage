@@ -1058,6 +1058,7 @@
             ChkChangeCanvasCenter.Checked = Settings.Default.MainFormRdoChangeCanvasChkCenter;
             TxtChangeCanvasCenterPointX.Value = Settings.Default.MainFormRdoChangeCanvasChkCenterX;
             TxtChangeCanvasCenterPointY.Value = Settings.Default.MainFormRdoChangeCanvasChkCenterY;
+            ChkChangeCanvasPreviewCenterLine.Checked = false;
             RdoChangeCanvasSizeNoChange.Checked = Settings.Default.MainFormRdoChangeCanvasSizeNoChange;
             RdoChangeCanvasSizeDiagonalSize.Checked = Settings.Default.MainFormRdoChangeCanvasSizeDiagonalSize;
             RdoChangeCanvasSizeSelectSize.Checked = Settings.Default.MainFormRdoChangeCanvasSizeSelectSize;
