@@ -422,6 +422,32 @@
 
         #endregion
 
+        #region ループの設定エリアのイベント
+
+        /// <summary>
+        /// ループするかのチェックボックスのチェックを変更
+        /// </summary>
+        /// <param name="sender">センダーオブジェクト</param>
+        /// <param name="e">イベントデータ</param>
+        private void ChkRoop_CheckedChanged(object sender, EventArgs e)
+        {
+            // 画面の表示設定を行う
+            SetControlDisplaySetting();
+        }
+
+        /// <summary>
+        /// 無限回ループするかのチェックボックスのチェックを変更
+        /// </summary>
+        /// <param name="sender">センダーオブジェクト</param>
+        /// <param name="e">イベントデータ</param>
+        private void ChkRoopInfinite_CheckedChanged(object sender, EventArgs e)
+        {
+            // 画面の表示設定を行う
+            SetControlDisplaySetting();
+        }
+
+        #endregion
+
         #region 実行エリアのイベント
 
         /// <summary>
@@ -567,8 +593,11 @@
             // ループエリアの表示設定
             bool isAppendGif = !string.IsNullOrWhiteSpace(TxtAppendGif.Text)
                 && !TxtAppendGif.Text.Equals(_initializeAppendGifText);
+            bool isRoop = ChkRoop.Checked;
             PlRoop.Enabled = !isAppendGif;
             ChkRoop.Enabled = !isAppendGif;
+            PlRoopSettings.Enabled = isRoop;
+            PlRoopCount.Enabled = isRoop && !ChkRoopInfinite.Checked;
 
             // 実行ボタンエリアの表示設定
             BtStop.Enabled = !BtRun.Enabled;

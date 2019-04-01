@@ -197,6 +197,7 @@
             this.ChkRoopInfinite.TabIndex = 1;
             this.ChkRoopInfinite.Text = "無限";
             this.ChkRoopInfinite.UseVisualStyleBackColor = true;
+            this.ChkRoopInfinite.CheckedChanged += new System.EventHandler(this.ChkRoopInfinite_CheckedChanged);
             // 
             // PlRoopCount
             // 
@@ -253,6 +254,7 @@
             this.ChkRoop.TabIndex = 1;
             this.ChkRoop.Text = "ループするか？";
             this.ChkRoop.UseVisualStyleBackColor = true;
+            this.ChkRoop.CheckedChanged += new System.EventHandler(this.ChkRoop_CheckedChanged);
             // 
             // LbRoop
             // 
