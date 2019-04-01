@@ -13,14 +13,24 @@
 【作成中】
 
 # ダウンロード
-【工事中】
-
+【工事中】  
+EXEは以下のURLで公開しております。  
+[EXEのダウンロード](https://drive.google.com/file/d/1YuYKYObnPTVpQislpdmf920jSIyNhJ2w)  
+  
 # 動作環境
 動作させるには下記が必要です。  
 * .NET Framework 4.5 以上  
   
 # 対応言語
 日本語のみ  
+  
+# 開発環境
+<table>
+<tr><th align="left">言語</th><td>C#</td></tr>
+<tr><th align="left">開発ツール</th><td>Visual Studio 2017 Community版</td></tr>
+<tr><th align="left">フレームワーク</th><td>.NET Framework 4.5</td></tr>
+<tr><th align="left">NuGet等の外部ライブラリ</th><td>使用していない</td></tr>
+</table>
   
 # ライセンス
 MITライセンスです。  
