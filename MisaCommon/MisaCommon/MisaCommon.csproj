@@ -129,9 +129,6 @@
     <Compile Include="Utility\StaticMethod\MessageBox.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MessageResources\ErrorMessage.en.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="MessageResources\ErrorMessage.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessage.Designer.cs</LastGenOutput>
