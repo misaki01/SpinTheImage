@@ -48,7 +48,7 @@ EXEは以下のURLで公開しております。
 <tr><th align="left">言語</th><td>C#</td></tr>
 <tr><th align="left">開発ツール</th><td>Visual Studio 2017 Community版</td></tr>
 <tr><th align="left">フレームワーク</th><td>.NET Framework 4.5</td></tr>
-<tr><th align="left">NuGet等の外部ライブラリ</th><td>使用していない</td></tr>
+<tr><th align="left">NuGet等の外部あライブラリ</th><td>使用していないあ</td></tr>
 </table>
   
 # ライセンス
