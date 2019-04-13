@@ -21,7 +21,9 @@
         #region クラス変数・定数
 
         /// <summary>
-        /// Pngファイルを保存するフォルダの名称 {0}：年月日時分秒、{1}：通番（年月日時分秒が重複した場合に付与する通番）
+        /// Pngファイルを保存するフォルダの名称
+        /// {0}：年月日時分秒、
+        /// {1}：通番（年月日時分秒が重複した場合に付与する通番）
         /// </summary>
         /// <remarks>
         /// Pngファイルを保存するフォルダの名称の定義
@@ -57,39 +59,35 @@
         /// ・生成の元となる画像（<paramref name="image"/>）がNULLの場合
         /// ・生成に使用する各種パラメータ（<paramref name="parameter"/>）がNULLの場合
         /// ・生成に使用する各種パラメータ（<paramref name="parameter"/>）において、
-        /// 　1フレームで移動する角度のリスト（<see cref="ImageParameter.RotateAmountList"/>）がNULLの場合
-        /// ・Gifファイルを保存する場合（※1）で、引数の生成したGifの保存先のパス（<paramref name="savePath"/>）がNULLの場合
+        /// 　1フレームで移動する角度のリスト（<see cref="ImageParameter.RotateAmountListPerFrame"/>）が
+        /// 　NULLの場合
+        /// ・Gifファイルを保存する場合（※1）で、引数の生成したGifの保存先のパス
+        ///  （<paramref name="savePath"/>）がNULLの場合
         /// ※1：生成に使用する各種パラメータ（<paramref name="parameter"/>）において、
         /// 　 　プレビューモードかのフラグ（<see cref="ImageParameter.IsPreview"/>）が True の場合
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）が空文字
-        /// または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合に発生
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// 引数の生成に使用する各種パラメータ（<paramref name="parameter"/>）において、
         /// フレームレート（<see cref="ImageParameter.FrameRate"/>）が0以下の場合に発生
         /// </exception>
-        /// <exception cref="Exception">
-        /// 引数の生成の元となる画像（<paramref name="image"/>）から <see cref="Bitmap"/> オブジェクトが
-        /// 生成できない場合に発生
-        /// （インデックス付きピクセル形式かの形式が定義されていない場合等）
-        /// </exception>
-        /// <exception cref="System.Runtime.InteropServices.ExternalException">
-        /// 引数の生成の元となる画像（<paramref name="image"/>）を、
-        /// 回転させた画像データが正しくないイメージ形式の場合に発生
+        /// <exception cref="ArgumentException">
+        /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）が空文字
+        /// または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合に発生
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）に、
         /// ドライブラベル（C:\）の一部ではないコロン文字（:）が含まれている場合に発生
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）が示すディレクトリが正しくない場合に発生
-        /// (マップされていないドライブ名が指定されている場合等)
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）がシステム定義の最大長を超得ている場合に発生
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// 1. 引数のGifの保存先のパス（<paramref name="savePath"/>）が示すディレクトリが正しくない場合
+        /// 　（マップされていないドライブ名が指定されている場合等）
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// 2. 引数のGifの保存先のパス（<paramref name="savePath"/>）がシステム定義の最大長を超えている場合
+        /// 　（Windowsでは、パスは248文字以下、ファイル名は260文字以下にする必要がある）
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 3. I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 以下の場合に発生する
@@ -100,13 +98,21 @@
         /// <exception cref="System.Security.SecurityException">
         /// 呼び出し元に、必要なアクセス許可がない場合に発生
         /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
+        /// <exception cref="System.Runtime.InteropServices.ExternalException">
+        /// 引数の生成の元となる画像（<paramref name="image"/>）を、
+        /// 回転させた画像データが正しくないイメージ形式の場合に発生
+        /// </exception>
+        /// <exception cref="Exception">
+        /// 引数の生成の元となる画像（<paramref name="image"/>）から <see cref="Bitmap"/> オブジェクトが
+        /// 生成できない場合に発生
+        /// （インデックス付きピクセル形式かの形式が定義されていない場合等）
         /// </exception>
         /// <exception cref="SpinTheImageException">
         /// Gifを作成する過程で生成したPngファイルを保存するディレクトリ名の生成において、
-        /// 生成したディレクトリと同じパスのディレクトリが既に存在しており新しいディレクトリの作成が行えない場合に発生
-        /// （何度かディレクトリの生成を行うがその全てにおいて同じパスのディレクトリが既に存在している場合のみ発生）
+        /// 生成したディレクトリと同じパスのディレクトリが既に存在しており
+        /// 新しいディレクトリの作成が行えない場合に発生
+        /// （何度かディレクトリの生成を行うがその全てにおいて同じパスのディレクトリが、
+        /// 　既に存在している場合のみ発生）
         /// </exception>
         /// <exception cref="MisaCommon.Exceptions.GifEncoderException">
         /// Gifデータへのエンコードに失敗した場合に発生
@@ -123,49 +129,55 @@
         /// <summary>
         /// 回転するGifを生成する
         /// </summary>
-        /// <param name="image">生成の元となる画像</param>
-        /// <param name="parameter">生成に使用する各種パラメータ</param>
-        /// <param name="savePath">生成したGifの保存先のパス</param>
-        /// <param name="previewAction">プレビュー表示処理を行うメソッド</param>
-        /// <param name="progressAction">進捗率の表示を行うメソッド（当メソッドでは0～100%の値を設定する）</param>
+        /// <param name="image">
+        /// 生成の元となる画像
+        /// </param>
+        /// <param name="parameter">
+        /// 生成に使用する各種パラメータ
+        /// </param>
+        /// <param name="savePath">
+        /// 生成したGifの保存先のパス
+        /// </param>
+        /// <param name="previewAction">
+        /// プレビュー表示処理を行うメソッド
+        /// </param>
+        /// <param name="progressAction">
+        /// 進捗率の表示を行うメソッド（当メソッドでは0～100%の値を設定する）
+        /// </param>
         /// <exception cref="ArgumentNullException">
         /// 引数が以下の場合に発生する
         /// ・生成の元となる画像（<paramref name="image"/>）がNULLの場合
         /// ・生成に使用する各種パラメータ（<paramref name="parameter"/>）がNULLの場合
         /// ・生成に使用する各種パラメータ（<paramref name="parameter"/>）において、
-        /// 　1フレームで移動する角度のリスト（<see cref="ImageParameter.RotateAmountList"/>）がNULLの場合
-        /// ・Gifファイルを保存する場合（※1）で、引数の生成したGifの保存先のパス（<paramref name="savePath"/>）がNULLの場合
+        /// 　1フレームで移動する角度のリスト（<see cref="ImageParameter.RotateAmountListPerFrame"/>）が
+        /// 　NULLの場合
+        /// ・Gifファイルを保存する場合（※1）で、引数の生成したGifの保存先のパス
+        ///  （<paramref name="savePath"/>）がNULLの場合
         /// ※1：生成に使用する各種パラメータ（<paramref name="parameter"/>）において、
         /// 　 　プレビューモードかのフラグ（<see cref="ImageParameter.IsPreview"/>）が True の場合
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）が空文字
-        /// または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合に発生
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// 引数の生成に使用する各種パラメータ（<paramref name="parameter"/>）において、
         /// フレームレート（<see cref="ImageParameter.FrameRate"/>）が0以下の場合に発生
         /// </exception>
-        /// <exception cref="Exception">
-        /// 引数の生成の元となる画像（<paramref name="image"/>）から <see cref="Bitmap"/> オブジェクトが
-        /// 生成できない場合に発生
-        /// （インデックス付きピクセル形式かの形式が定義されていない場合等）
-        /// </exception>
-        /// <exception cref="System.Runtime.InteropServices.ExternalException">
-        /// 引数の生成の元となる画像（<paramref name="image"/>）を、
-        /// 回転させた画像データが正しくないイメージ形式の場合に発生
+        /// <exception cref="ArgumentException">
+        /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）が空文字
+        /// または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合に発生
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）に、
         /// ドライブラベル（C:\）の一部ではないコロン文字（:）が含まれている場合に発生
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）が示すディレクトリが正しくない場合に発生
-        /// (マップされていないドライブ名が指定されている場合等)
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 引数の生成したGifの保存先のパス（<paramref name="savePath"/>）がシステム定義の最大長を超得ている場合に発生
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// 1. 引数のGifの保存先のパス（<paramref name="savePath"/>）が示すディレクトリが正しくない場合
+        /// 　（マップされていないドライブ名が指定されている場合等）
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// 2. 引数のGifの保存先のパス（<paramref name="savePath"/>）がシステム定義の最大長を超えている場合
+        /// 　（Windowsでは、パスは248文字以下、ファイル名は260文字以下にする必要がある）
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 3. I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 以下の場合に発生する
@@ -176,13 +188,21 @@
         /// <exception cref="System.Security.SecurityException">
         /// 呼び出し元に、必要なアクセス許可がない場合に発生
         /// </exception>
-        /// <exception cref="IOException">
-        /// I/O エラーが発生した場合に発生
+        /// <exception cref="System.Runtime.InteropServices.ExternalException">
+        /// 引数の生成の元となる画像（<paramref name="image"/>）を、
+        /// 回転させた画像データが正しくないイメージ形式の場合に発生
+        /// </exception>
+        /// <exception cref="Exception">
+        /// 引数の生成の元となる画像（<paramref name="image"/>）から <see cref="Bitmap"/> オブジェクトが
+        /// 生成できない場合に発生
+        /// （インデックス付きピクセル形式かの形式が定義されていない場合等）
         /// </exception>
         /// <exception cref="SpinTheImageException">
         /// Gifを作成する過程で生成したPngファイルを保存するディレクトリ名の生成において、
-        /// 生成したディレクトリと同じパスのディレクトリが既に存在しており新しいディレクトリの作成が行えない場合に発生
-        /// （何度かディレクトリの生成を行うがその全てにおいて同じパスのディレクトリが既に存在している場合のみ発生）
+        /// 生成したディレクトリと同じパスのディレクトリが既に存在しており
+        /// 新しいディレクトリの作成が行えない場合に発生
+        /// （何度かディレクトリの生成を行うがその全てにおいて同じパスのディレクトリが、
+        /// 　既に存在している場合のみ発生）
         /// </exception>
         /// <exception cref="MisaCommon.Exceptions.GifEncoderException">
         /// Gifデータへのエンコードに失敗した場合に発生
@@ -221,8 +241,10 @@
             }
 
             // 回転情報リストを生成
-            IList<RotateInfo> rotateInfos =
-                CreateRotateInfoList(parameter.FrameRate, parameter.RotateAmountList, parameter.IsRotateToEnd);
+            IList<RotateInfo> rotateInfos = CreateRotateInfoList(
+                frameRate: parameter.FrameRate,
+                movingAngleList: parameter.RotateAmountListPerFrame,
+                isRotateToEnd: parameter.IsRotateToEnd);
 
             // 回転させる画像の元データを生成
             Func<Image, Image> createBaceImage = GetCreateBaceImageFunc(
@@ -284,11 +306,20 @@
         /// <summary>
         /// キャンパスの変更設定を適用させた回転処理の元となる画像データを生成する機能を取得する
         /// </summary>
-        /// <param name="isChangeCanvasSize">キャンパスサイズを変更するかのフラグ</param>
-        /// <param name="changeSize">変更するキャンパスサイズ（NULLを指定した場合は対角線の長さに拡大）</param>
-        /// <param name="changeCenterPoint">変更する中心位置（NULLを指定した場合は中心位置の変更はしない）</param>
-        /// <returns>キャンパスの変更設定を適用させた回転処理の元となる画像データを生成する機能</returns>
-        public static Func<Image, Image> GetCreateBaceImageFunc(bool isChangeCanvasSize, Size? changeSize, Point? changeCenterPoint)
+        /// <param name="isChangeCanvasSize">
+        /// キャンパスサイズを変更するかのフラグ
+        /// </param>
+        /// <param name="changeSize">
+        /// 変更するキャンパスサイズ（NULLを指定した場合は対角線の長さに拡大）
+        /// </param>
+        /// <param name="changeCenterPoint">
+        /// 変更する中心位置（NULLを指定した場合は中心位置の変更はしない）
+        /// </param>
+        /// <returns>
+        /// キャンパスの変更設定を適用させた回転処理の元となる画像データを生成する機能
+        /// </returns>
+        public static Func<Image, Image> GetCreateBaceImageFunc(
+            bool isChangeCanvasSize, Size? changeSize, Point? changeCenterPoint)
         {
             // 回転させる画像の元データを生成するためのファンクションを生成
             Func<Image, Image> createBaceImage;
@@ -298,12 +329,14 @@
                 // ⇒キャンパスサイズ、中心位置を変更した画像データを使用
                 if (changeSize.HasValue)
                 {
-                    createBaceImage = (image) => ImageTransform.ChangeCanvas(image, changeSize.Value, changeCenterPoint.Value);
+                    createBaceImage = (image)
+                        => ImageTransform.ChangeCanvas(image, changeSize.Value, changeCenterPoint.Value);
                 }
                 else
                 {
                     // 変更するサイズに指定がない場合は、中心点を考慮した対角線の長さに拡大する
-                    createBaceImage = (image) => ImageTransform.ChangeCanvasToDiagonalSize(image, changeCenterPoint.Value);
+                    createBaceImage = (image)
+                        => ImageTransform.ChangeCanvasToDiagonalSize(image, changeCenterPoint.Value);
                 }
             }
             else if (isChangeCanvasSize && !changeCenterPoint.HasValue)
@@ -357,13 +390,15 @@
         /// または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合に発生
         /// </exception>
         /// <exception cref="PathTooLongException">
-        /// 引数のGifの保存先のパス（<paramref name="savePath"/>）がシステム定義の最大長を超得ている場合に発生
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// 引数のGifの保存先のパス（<paramref name="savePath"/>）がシステム定義の
+        /// 最大長を超えている場合に発生
+        /// （Windowsでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
         /// </exception>
         /// <exception cref="SpinTheImageException">
         /// 生成したディレクトリと同じパスのディレクトリが既に存在しており、
         /// 新しいディレクトリの作成が行えない場合に発生
-        /// （何度かディレクトリの生成を行うがその全てにおいて同じパスのディレクトリが既に存在している場合のみ発生）
+        /// （何度かディレクトリの生成を行うが、
+        /// 　その全てにおいて同じパスのディレクトリが既に存在している場合のみ発生）
         /// </exception>
         /// <returns>保存先のディレクトリパス</returns>
         private static string GetPngOutputDirectoryPath(string savePath)
@@ -382,17 +417,19 @@
 
             // 既にフォルダがある場合を考慮し重複しない名称になるまでループ
             int count = 0;
-            string directoryPath = null;
+            string directoryPath;
             while (true)
             {
                 // カウントが10より大きくなったら諦めて例外を発生させる
                 if (count > 10)
                 {
-                    throw new SpinTheImageException(Properties.Resources.CreateGifErrorNotGenerateDirectoryName);
+                    throw new SpinTheImageException(
+                        Properties.Resources.CreateGifErrorNotGenerateDirectoryName);
                 }
 
                 // 通番名を取得
-                string serialNum = count > 0 ? count.ToString("_000", CultureInfo.InvariantCulture) : string.Empty;
+                string serialNum = count > 0
+                    ? count.ToString("_000", CultureInfo.InvariantCulture) : string.Empty;
 
                 // 作成するフォルダ名を生成
                 string folderName = string.Format(
@@ -433,7 +470,8 @@
         /// 引数の移動量リスト（<paramref name="movingAngleList"/>）がNULLの場合に発生
         /// </exception>
         /// <returns>回転情報リスト</returns>
-        private static IList<RotateInfo> CreateRotateInfoList(int frameRate, IList<float> movingAngleList, bool isRotateToEnd)
+        private static IList<RotateInfo> CreateRotateInfoList(
+            int frameRate, IList<float> movingAngleList, bool isRotateToEnd)
         {
             // 引数のチェック
             if (frameRate <= 0)
@@ -475,7 +513,8 @@
                 rotateInfoList.Add(new RotateInfo(angle, (short)delay));
             }
 
-            // 最後まで回転するか（元の位置に戻るまで回転するか）のフラグが立っている場合、移動量0のデータを追加する
+            // 最後まで回転するか
+            // （元の位置に戻るまで回転するか）のフラグが立っている場合、移動量0のデータを追加する
             if (isRotateToEnd)
             {
                 delay = (GifEncoder.GifDelayUnit + remainder) / frameRate;
@@ -493,57 +532,83 @@
         /// <summary>
         /// 回転させた画像データのGifファイルを作成する
         /// </summary>
-        /// <param name="baceImage">回転させる元となる画像データ</param>
-        /// <param name="rotateInfos">回転情報リスト</param>
-        /// <param name="isRoop">ループするかのフラグ</param>
-        /// <param name="roopCount">ループする場合のループ回数（0以下場合は無限にループする）</param>
-        /// <param name="isPreview">プレビューモードかのフラグ</param>
-        /// <param name="isOutputPng">Gifを作成する過程で生成したPngファイルを保存するかのフラグ</param>
-        /// <param name="savePath">生成したGifの保存先のパス</param>
-        /// <param name="pngDirectoryPath">Gifを作成する過程で生成したPngファイルを保存するディレクトリパス</param>
-        /// <param name="previewAction">プレビュー表示処理を行うメソッド</param>
-        /// <param name="progressAction">進捗率の表示を行うメソッド（当メソッドでは0～100%の値を設定する）</param>
+        /// <param name="baceImage">
+        /// 回転させる元となる画像データ
+        /// </param>
+        /// <param name="rotateInfos">
+        /// 回転情報リスト
+        /// </param>
+        /// <param name="isRoop">
+        /// ループするかのフラグ
+        /// </param>
+        /// <param name="roopCount">
+        /// ループする場合のループ回数（0以下場合は無限にループする）
+        /// </param>
+        /// <param name="isPreview">
+        /// プレビューモードかのフラグ
+        /// </param>
+        /// <param name="isOutputPng">
+        /// Gifを作成する過程で生成したPngファイルを保存するかのフラグ
+        /// </param>
+        /// <param name="savePath">
+        /// 生成したGifの保存先のパス
+        /// </param>
+        /// <param name="pngDirectoryPath">
+        /// Gifを作成する過程で生成したPngファイルを保存するディレクトリパス
+        /// </param>
+        /// <param name="previewAction">
+        /// プレビュー表示処理を行うメソッド
+        /// </param>
+        /// <param name="progressAction">
+        /// 進捗率の表示を行うメソッド（当メソッドでは0～100%の値を設定する）
+        /// </param>
         /// <exception cref="ArgumentNullException">
         /// 引数が以下の場合に発生する
         /// ・引数の回転させる元となる画像データ（<paramref name="baceImage"/>）がNULLの場合
         /// ・引数の回転情報リスト（<paramref name="rotateInfos"/>）がNULLの場合
-        /// ・Gifファイルを保存する場合（※1）で、引数の生成したGifの保存先のパス（<paramref name="savePath"/>）がNULLの場合
+        /// ・Gifファイルを保存する場合（※1）で、引数の生成したGifの保存先のパス
+        /// 　（<paramref name="savePath"/>）がNULLの場合
         /// ・Gifを作成する過程で生成したPngファイルを保存する場合（※2）で、
-        /// 　引数のGifを作成する過程で生成したPngファイルを保存するディレクトリパス（<paramref name="pngDirectoryPath"/>）がNULLの場合
+        /// 　引数のGifを作成する過程で生成したPngファイルを保存するディレクトリパス
+        /// 　（<paramref name="pngDirectoryPath"/>）がNULLの場合
         /// ※1：引数のプレビューモードかのフラグ（<paramref name="isPreview"/>）が False の場合
         /// ※2：引数のプレビューモードかのフラグ（<paramref name="isPreview"/>）が False の場合
-        /// 　 　かつ、引数のGifを作成する過程で生成したPngファイルを保存するかのフラグ（<paramref name="isOutputPng"/>）が True の場合
+        /// 　 　かつ、引数のGifを作成する過程で生成したPngファイルを保存するかのフラグ
+        /// 　 　（<paramref name="isOutputPng"/>）が True の場合
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// 以下の引数が空文字 または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合に発生
+        /// 以下の引数が空文字 または、<see cref="Path.GetInvalidPathChars"/> で定義される
+        /// 無効な文字が含まれている場合に発生
         /// ・生成したGifの保存先のパス（<paramref name="savePath"/>）
-        /// ・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス（<paramref name="pngDirectoryPath"/>）
-        /// </exception>
-        /// <exception cref="Exception">
-        /// 引数の回転させる元となる画像データ（<paramref name="baceImage"/>）から <see cref="Bitmap"/> オブジェクトが
-        /// 生成できない場合に発生
-        /// （インデックス付きピクセル形式かの形式が定義されていない場合等）
-        /// </exception>
-        /// <exception cref="System.Runtime.InteropServices.ExternalException">
-        /// 引数の回転させる元となる画像データ（<paramref name="baceImage"/>）を回転させた画像データが、
-        /// 正しくないイメージ形式の場合に発生
+        /// ・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス
+        /// 　（<paramref name="pngDirectoryPath"/>）
         /// </exception>
         /// <exception cref="NotSupportedException">
         /// 以下の引数にドライブラベル（C:\）の一部ではないコロン文字（:）が含まれている場合
         /// ・生成したGifの保存先のパス（<paramref name="savePath"/>）
-        /// ・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス（<paramref name="pngDirectoryPath"/>）
+        /// ・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス
+        /// 　（<paramref name="pngDirectoryPath"/>）
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 以下の引数が示すディレクトリが正しくない場合に発生
-        /// (マップされていないドライブ名が指定されている場合等)
-        /// ・生成したGifの保存先のパス（<paramref name="savePath"/>）
-        /// ・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス（<paramref name="pngDirectoryPath"/>）
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 以下の引数がシステム定義の最大長を超得ている場合に発生
-        /// ・生成したGifの保存先のパス（<paramref name="savePath"/>）
-        /// ・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス（<paramref name="pngDirectoryPath"/>）
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// 1. 以下の引数が示すディレクトリが正しくない場合
+        /// 　（マップされていないドライブ名が指定されている場合等）
+        /// 　・生成したGifの保存先のパス（<paramref name="savePath"/>）
+        /// 　・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス
+        /// 　　（<paramref name="pngDirectoryPath"/>）
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        /// 2. 以下の引数がシステム定義の最大長を超えている場合
+        /// 　（Windowsでは、パスは248文字以下、ファイル名は260文字以下にする必要がある）
+        /// 　・生成したGifの保存先のパス（<paramref name="savePath"/>）
+        /// 　・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス
+        /// 　　（<paramref name="pngDirectoryPath"/>）
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 3. 以下の場合に発生する
+        /// 　・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス
+        /// 　　（<paramref name="pngDirectoryPath"/>）がファイル名となっている または、
+        /// 　　　指定されているネットワーク名が不明の場合
+        /// 　・I/O エラーが発生した場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 以下の場合に発生する
@@ -554,11 +619,14 @@
         /// <exception cref="System.Security.SecurityException">
         /// 呼び出し元に、必要なアクセス許可がない場合に発生
         /// </exception>
-        /// <exception cref="IOException">
-        /// 以下の場合に発生する
-        /// ・Gifを作成する過程で生成したPngファイルを保存するディレクトリパス（<paramref name="pngDirectoryPath"/>）が
-        /// 　ファイル名となっている または、指定されているネットワーク名が不明の場合に発生
-        /// ・I/O エラーが発生した場合に発生
+        /// <exception cref="System.Runtime.InteropServices.ExternalException">
+        /// 引数の回転させる元となる画像データ（<paramref name="baceImage"/>）を回転させた画像データが、
+        /// 正しくないイメージ形式の場合に発生
+        /// </exception>
+        /// <exception cref="Exception">
+        /// 引数の回転させる元となる画像データ（<paramref name="baceImage"/>）から
+        /// <see cref="Bitmap"/> オブジェクトが生成できない場合に発生
+        /// （インデックス付きピクセル形式かの形式が定義されていない場合等）
         /// </exception>
         /// <exception cref="MisaCommon.Exceptions.GifEncoderException">
         /// Gifデータへのエンコードに失敗した場合に発生
@@ -601,7 +669,7 @@
             if (!isPreview)
             {
                 string extension = Path.GetExtension(savePath);
-                if (!extension.ToUpperInvariant().Equals(".gif".ToUpperInvariant()))
+                if (!extension.ToUpperInvariant().Equals(".gif".ToUpperInvariant(), StringComparison.Ordinal))
                 {
                     // 拡張子がGifの形式でない場合、
                     // Gifの保存先のパスに「.gif」の拡張子を追加する
@@ -616,10 +684,11 @@
                 // プレビューモードでない場合、Gifエンコーダーを生成する
                 if (!isPreview)
                 {
-                    gifEncoder = new GifEncoder(saveGifFilePath, isRoop, roopCount);
-
-                    // メモリ節約のため都度保存モードを ON にする
-                    gifEncoder.IsEachTimeSave = true;
+                    gifEncoder = new GifEncoder(saveGifFilePath, isRoop, roopCount)
+                    {
+                        // メモリ節約のため都度保存モードを ON にする
+                        IsEachTimeSave = true
+                    };
                 }
 
                 // ループ処理で使用するストップウォッチオブジェクトを生成
@@ -674,7 +743,8 @@
                     // ストップウオッチをリセット
                     stopwatch.Reset();
 
-                    // 進捗を進める（ループ前後の処理で20％とっているため、ループ処理では残りの80％に対する進捗率を出す）
+                    // 進捗を進める
+                    // （ループ前後の処理で20％とっているため、ループ処理では残りの80％に対する進捗率を出す）
                     int progressRate = (int)Math.Truncate(count / (decimal)rotateInfos.Count * 80);
 
                     // 進捗を表示
@@ -718,36 +788,38 @@
         /// 通番が0以下の場合に発生
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// 以下の引数が空文字 または、<see cref="Path.GetInvalidPathChars"/> で定義される無効な文字が含まれている場合に発生
+        /// 以下の引数が空文字 または、<see cref="Path.GetInvalidPathChars"/> で定義される
+        /// 無効な文字が含まれている場合に発生
         /// ・保存先のディレクトリ（<paramref name="saveDirectory"/>）
         /// ・Gifの保存先パス（<paramref name="saveGifFilePath"/>）
         /// </exception>
         /// <exception cref="NotSupportedException">
-        /// 引数の保存先のディレクトリ（<paramref name="saveDirectory"/>）にドライブラベル（C:\）の一部ではない
-        /// コロン文字（:）が含まれている場合に発生
+        /// 引数の保存先のディレクトリ（<paramref name="saveDirectory"/>）に
+        /// ドライブラベル（C:\）の一部ではないコロン文字（:）が含まれている場合に発生
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// 引数の保存先のディレクトリ（<paramref name="saveDirectory"/>）が正しくない場合に発生
-        /// (マップされていないドライブ名が指定されている場合等)
-        /// </exception>
-        /// <exception cref="PathTooLongException">
-        /// 以下の引数がシステム定義の最大長を超得ている場合に発生
-        /// （Windowsベースのプラットフォームでは、パスは 248 文字未満、ファイル名は 260 文字未満にする必要がある）
-        /// ・保存先のディレクトリ（<paramref name="saveDirectory"/>）
-        /// ・Gifの保存先パス（<paramref name="saveGifFilePath"/>）
+        /// <exception cref="IOException">
+        /// 下記の場合に発生
+        /// ・引数の保存先のディレクトリ（<paramref name="saveDirectory"/>）が正しくない場合
+        /// 　[<see cref="DirectoryNotFoundException"/>]
+        ///  （マップされていないドライブ等）
+        /// ・保存先のディレクトリ（<paramref name="saveDirectory"/>）、
+        /// 　Gifの保存先パス（<paramref name="saveGifFilePath"/>）コンフィグの保存パスが、
+        /// 　システム定義の最大長を超えている場合
+        /// 　[<see cref="PathTooLongException"/>]
+        /// 　（Windowsでは、パスは248文字以下、ファイル名は260文字以下にする必要がある）
+        /// ・引数の保存先のディレクトリ（<paramref name="saveDirectory"/>）がファイル名となっている
+        /// 　または、指定されているネットワーク名が不明の場合
+        /// 　[<see cref="IOException"/>]
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// 呼び出し元に、必要なアクセス許可がない場合に発生
-        /// </exception>
-        /// <exception cref="IOException">
-        /// 引数の保存先のディレクトリ（<paramref name="saveDirectory"/>）がファイル名となっている または、
-        /// 指定されているネットワーク名が不明の場合に発生
         /// </exception>
         /// <exception cref="System.Runtime.InteropServices.ExternalException">
         /// 引数のイメージが、誤ったイメージ形式で保存された場合
         /// または、イメージから作成された同じファイルに保存された場合に発生
         /// </exception>
-        private static void SavePng(Image image, string saveDirectory, string saveGifFilePath, int serialNum)
+        private static void SavePng(
+            Image image, string saveDirectory, string saveGifFilePath, int serialNum)
         {
             // 引数のチェック
             if (image == null)

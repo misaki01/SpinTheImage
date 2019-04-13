@@ -49,11 +49,11 @@
         /// <param name="isOutputPng">
         /// Gifを作成する過程で生成したPngファイルを保存するかのフラグ
         /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// フレームレートが0以下の場合に発生
-        /// </exception>
         /// <exception cref="ArgumentNullException">
         /// 1フレームで移動する角度のリストがNULLの場合に発生
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// フレームレートが0以下の場合に発生
         /// </exception>
         public ImageParameter(
         int frameRate,
@@ -68,7 +68,11 @@
             bool isOutputPng)
         {
             // 引数のチェック
-            if (frameRate <= 0)
+            if (rotateAmountList == null)
+            {
+                throw new ArgumentNullException(nameof(rotateAmountList));
+            }
+            else if (frameRate <= 0)
             {
                 throw new ArgumentOutOfRangeException(
                     paramName: nameof(frameRate),
@@ -76,13 +80,9 @@
                     message: string.Format(
                         CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionOrLess, 0));
             }
-            else if (rotateAmountList == null)
-            {
-                throw new ArgumentNullException(nameof(rotateAmountList));
-            }
 
             FrameRate = frameRate;
-            RotateAmountList = rotateAmountList;
+            RotateAmountListPerFrame = rotateAmountList;
             CenterPoint = centerPoint;
             IsChangeCanvasSize = isChangeCanvasSize;
             CanvasSize = canvasSize;
@@ -105,7 +105,7 @@
         /// <summary>
         /// 1フレームで移動する角度のリスト
         /// </summary>
-        public IList<float> RotateAmountList { get; }
+        public IList<float> RotateAmountListPerFrame { get; }
 
         /// <summary>
         /// 変更する中心位置（NULLを指定した場合、中心位置を変更しない）

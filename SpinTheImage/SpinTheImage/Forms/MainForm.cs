@@ -37,12 +37,7 @@
         /// 回転パラメータファイルテキストボックスの初期値を保持する領域
         /// （「ファイル選択 又は ドラッグ＆ドロップ」という文言を保持）
         /// </summary>
-        private readonly string _initializeRoteteParameterFileText;
-
-        /// <summary>
-        /// 入力した画像データ
-        /// </summary>
-        private Image _imageData = null;
+        private readonly string initializeRoteteParameterFileText;
 
         #endregion
 
@@ -63,7 +58,7 @@
             // 回転パラメータファイルテキストボックスの初期値を取得し保持
             // （値はInitializeComponent()で設定され、
             //   その後コンフィグに値に上書きされるためここで処理を行う必要あり）
-            _initializeRoteteParameterFileText = TxtRoteteParameterFile.Text;
+            initializeRoteteParameterFileText = TxtRoteteParameterFile.Text;
 
             // ユーザコンフィグから前回の設定値を取得し設定する
             InitializeControlByUserConfig(true);
@@ -83,19 +78,7 @@
         /// <summary>
         /// 入力した画像データを取得・設定する
         /// </summary>
-        private Image ImageData
-        {
-            get => _imageData?.Clone() as Image;
-            set
-            {
-                if (_imageData != null)
-                {
-                    _imageData.Dispose();
-                }
-
-                _imageData = value;
-            }
-        }
+        private Image ImageData { get; set; }
 
         /// <summary>
         /// プレビューモードで表示をしているかどうかを示すフラグを取得・設定する
@@ -140,7 +123,7 @@
             string extension = Path.GetExtension(filePath).ToUpperInvariant();
             Console.WriteLine(Directory.Exists(filePath));
             if (!allowExtensionText.Split(',').Any(allowExtension
-                => allowExtension.ToUpperInvariant().Equals(extension)))
+                => allowExtension.ToUpperInvariant().Equals(extension, StringComparison.Ordinal)))
             {
                 return false;
             }
@@ -245,7 +228,8 @@
                 // ファイルを読み込む
                 if (File.Exists(filePath))
                 {
-                    using (TextReader stream = new StreamReader(filePath, Encoding.ASCII))
+                    TextReader stream;
+                    using (stream = new StreamReader(filePath, Encoding.ASCII))
                     {
                         // １行づつ読み込む
                         int lineCount = 0;
@@ -430,6 +414,7 @@
                     InitializeControlByUserConfig(false);
 
                     // 画像データをリセット
+                    ImageData?.Dispose();
                     ImageData = null;
 
                     // プレビューモードを OFF にする
@@ -467,7 +452,7 @@
             // ドラッグされているテキストファイルが正常な回転量リストかチェック
             if (checkResult)
             {
-                checkResult = GetRotateAmountList(GetDropFilePaths(e.Data)[0], out string tmp) != null;
+                checkResult = GetRotateAmountList(GetDropFilePaths(e.Data)[0], out string _) != null;
             }
 
             // チェックが正常の場合ドロップを受け入れる
@@ -496,7 +481,8 @@
         private void BtRoteteParameterFileSelect_Click(object sender, EventArgs e)
         {
             // ファイル選択ダイアログを開き、回転パラメータファイルを選択する
-            using (OpenFileDialog dialog = new OpenFileDialog())
+            OpenFileDialog dialog;
+            using (dialog = new OpenFileDialog())
             {
                 // ファイル選択ダイアログの表示設定
                 dialog.Title = Resources.RoteteParameterFileSelectDialogTitle;
@@ -536,7 +522,7 @@
         private void BtRoteteParameterFileClear_Click(object sender, EventArgs e)
         {
             // テキストボックスをデフォルトの値に戻す
-            TxtRoteteParameterFile.Text = _initializeRoteteParameterFileText;
+            TxtRoteteParameterFile.Text = initializeRoteteParameterFileText;
 
             // 画面の表示設定を行う
             SetControlDisplaySetting();
@@ -746,7 +732,7 @@
         /// </summary>
         /// <param name="sender">センダーオブジェクト</param>
         /// <param name="e">イベントデータ</param>
-        private void Run_Click(object sender, EventArgs e)
+        private async void Run_Click(object sender, EventArgs e)
         {
             // プログレスバーをリセット
             ProgressBarCreateGif.Value = 0;
@@ -762,7 +748,7 @@
             IList<float> movingAngleList = null;
             string filePath = TxtRoteteParameterFile.Text;
             if (!string.IsNullOrEmpty(filePath)
-                && !filePath.Equals(_initializeRoteteParameterFileText))
+                && !filePath.Equals(initializeRoteteParameterFileText, StringComparison.Ordinal))
             {
                 // 回転パラメータファイルが指定されている場合のみチェックを行う
                 movingAngleList = GetRotateAmountList(filePath, out string errorMessage);
@@ -783,7 +769,8 @@
             if (!isPreview)
             {
                 // ファイル保存ダイアログを開き、保存先のパスを設定する
-                using (SaveFileDialog dialog = new SaveFileDialog())
+                SaveFileDialog dialog;
+                using (dialog = new SaveFileDialog())
                 {
                     // ファイル保存ダイアログ
                     dialog.Title = Resources.RunSaveFileDialogTitle;
@@ -819,33 +806,26 @@
 
             // 回転Gifの作成処理を実行（別タスクで実行）
             bool result = false;
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 result = Run(movingAngleList, isPreview, savePath);
-            })
-            .ContinueWith((task) =>
+            }).ConfigureAwait(true);
+
+            // 処理結果を判定
+            if (result && !isPreview)
             {
-                // 処理結果を判定
-                if (task.Exception != null)
-                {
-                    // 例外が発生している場合
-                    ExceptionHandling.Error(task.Exception);
-                }
-                else if (result && !isPreview)
-                {
-                    // 正常終了かつプレビューでない場合、メッセージを表示する
-                    MessageBox.ShowInfo(Resources.RunProcessEndMessage);
-                }
+                // 正常終了かつプレビューでない場合、メッセージを表示する
+                MessageBox.ShowInfo(Resources.RunProcessEndMessage);
+            }
 
-                // 実行中フラグを OFF にする
-                IsRuning = false;
+            // 実行中フラグを OFF にする
+            IsRuning = false;
 
-                // 画像エリアの画像をもとに戻す
-                Invoke((MethodInvoker)(() => RefreshImage(ImageData)));
+            // 画像エリアの画像をもとに戻す
+            RefreshImage(ImageData);
 
-                // コントロールを有効にする
-                Invoke((MethodInvoker)(() => SetEnableForInputControl(true)));
-            });
+            // コントロールを有効にする
+            SetEnableForInputControl(true);
         }
 
         /// <summary>
@@ -894,8 +874,9 @@
 
                 // 読み込んだ画像をプロパティ、コントロールに設定する
                 Size size = image.Size;
+                ImageData?.Dispose();
                 ImageData = new Bitmap(image, image.Size);
-                PictureBoxPreview.Image = ImageData;
+                PictureBoxPreview.Image = (Image)ImageData.Clone();
 
                 // プレビューモードを OFF にする
                 IsPreviewMode = false;
@@ -998,7 +979,8 @@
 
                 // 中心線を描画
                 Graphics graphics = e.Graphics;
-                using (Pen pen = new Pen(Color.Red, 3))
+                Pen pen;
+                using (pen = new Pen(Color.Red, 3))
                 {
                     // 縦線
                     graphics.DrawLine(pen, centerX, 0, centerX, size.Height);
@@ -1049,7 +1031,7 @@
 
             // 回転パラメータファイルパス
             string filePath = Settings.Default.MainFormTxtRoteteParameterFile;
-            if (!string.IsNullOrEmpty(filePath) && GetRotateAmountList(filePath, out string tmp) != null)
+            if (!string.IsNullOrEmpty(filePath) && GetRotateAmountList(filePath, out string _) != null)
             {
                 TxtRoteteParameterFile.Text = filePath;
             }
@@ -1104,7 +1086,7 @@
 
             // 回転パラメータファイルパス
             string filePath = TxtRoteteParameterFile.Text;
-            bool checkFilePath = !string.IsNullOrEmpty(filePath) && GetRotateAmountList(filePath, out string tmp) != null;
+            bool checkFilePath = !string.IsNullOrEmpty(filePath) && GetRotateAmountList(filePath, out string _) != null;
             Settings.Default.MainFormTxtRoteteParameterFile = checkFilePath ? filePath : string.Empty;
 
             // キャンパスの変更エリア
@@ -1138,7 +1120,7 @@
         private void SetControlDisplaySetting()
         {
             // 回転に関するパラメータエリアの表示設定
-            PlRoteteParameterInput.Enabled = TxtRoteteParameterFile.Text == _initializeRoteteParameterFileText;
+            PlRoteteParameterInput.Enabled = TxtRoteteParameterFile.Text == initializeRoteteParameterFileText;
 
             // キャンパスの変更エリアの表示設定
             PlChangeCanvasCenter.Enabled = ImageData != null;
@@ -1461,7 +1443,6 @@
             Image beforeImage = PictureBoxPreview.Image;
             PictureBoxPreview.Image = new Bitmap(image);
             beforeImage?.Dispose();
-            beforeImage = null;
             Refresh();
         }
 

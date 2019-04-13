@@ -33,13 +33,13 @@
         /// 画像データ格納フォルダを選択するテキストボックスの初期値を保持する領域
         /// （「フォルダ選択 又は ドラッグ＆ドロップ」という文言を保持）
         /// </summary>
-        private readonly string _initializeImageDirectoryText;
+        private readonly string initializeImageDirectoryText;
 
         /// <summary>
         /// 追記元のGifを選択するテキストボックスの初期値を保持する領域
         /// （「ファイル選択 又は ドラッグ＆ドロップ」という文言を保持）
         /// </summary>
-        private readonly string _initializeAppendGifText;
+        private readonly string initializeAppendGifText;
 
         #endregion
 
@@ -57,8 +57,8 @@
             // 画像データ格納フォルダを選択するテキストボックスの初期値を取得し保持
             // （値はInitializeComponent()で設定され、
             //   その後コンフィグに値に上書きされるためここで処理を行う必要あり）
-            _initializeImageDirectoryText = TxtImageDirectory.Text;
-            _initializeAppendGifText = TxtAppendGif.Text;
+            initializeImageDirectoryText = TxtImageDirectory.Text;
+            initializeAppendGifText = TxtAppendGif.Text;
 
             // 初期状態では実行エリアは使用不可とする
             PlRun.Enabled = false;
@@ -141,7 +141,7 @@
             // 拡張子チェック
             string extension = Path.GetExtension(path).ToUpperInvariant();
             if (!allowExtensionGif.Split(',').Any(allowExtension
-                => allowExtension.ToUpperInvariant().Equals(extension)))
+                => allowExtension.ToUpperInvariant().Equals(extension, StringComparison.Ordinal)))
             {
                 return false;
             }
@@ -263,7 +263,8 @@
         private void BtImageDirectorySelect_Click(object sender, EventArgs e)
         {
             // フォルダ選択ダイアログを開き、画像データが格納してあるフォルダを選択する
-            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+            FolderBrowserDialog dialog;
+            using (dialog = new FolderBrowserDialog())
             {
                 dialog.Description = Resources.CombineImagesDirectorySelectDialogTitle;
                 dialog.ShowNewFolderButton = false;
@@ -305,7 +306,8 @@
                         // ・呼び出し元に、必要なアクセス許可がない場合
                         // IOException
                         // ・IOエラーが発生した場合
-                        string message = Resources.CombineImagesDirectoryErrorNotAccess + "\r\n" + ex.Message;
+                        string message = Resources.CombineImagesDirectoryErrorNotAccess
+                            + "\r\n" + ex.Message;
                         MessageBox.ShowAttention(this, message);
                     }
                 }
@@ -323,7 +325,7 @@
         private void BtImageDirectoryClear_Click(object sender, EventArgs e)
         {
             // テキストボックスをデフォルトの値に戻す
-            PlImageDirectory.Text = _initializeImageDirectoryText;
+            PlImageDirectory.Text = initializeImageDirectoryText;
 
             // 実行エリアを使用不可とする
             PlRun.Enabled = false;
@@ -372,7 +374,8 @@
         private void BtAppendGifFileSelect_Click(object sender, EventArgs e)
         {
             // ファイル選択ダイアログを開き、回転パラメータファイルを選択する
-            using (OpenFileDialog dialog = new OpenFileDialog())
+            OpenFileDialog dialog;
+            using (dialog = new OpenFileDialog())
             {
                 // ファイル選択ダイアログの表示設定
                 dialog.Title = Resources.CombineImagesGifFileSelectDialogTitle;
@@ -389,7 +392,7 @@
                     // 選択されたのがGifファイルかチェック
                     string extension = Path.GetExtension(filePath).ToUpperInvariant();
                     if (!AllowExtensionGif.Split(',').Any(allowExtension
-                        => allowExtension.ToUpperInvariant().Equals(extension)))
+                        => allowExtension.ToUpperInvariant().Equals(extension, StringComparison.Ordinal)))
                     {
                         // チェックOKの場合、選択したファイルのパスを設定する
                         TxtAppendGif.Text = filePath;
@@ -414,7 +417,7 @@
         private void BtAppendGifClear_Click(object sender, EventArgs e)
         {
             // テキストボックスをデフォルトの値に戻す
-            TxtAppendGif.Text = _initializeAppendGifText;
+            TxtAppendGif.Text = initializeAppendGifText;
 
             // 画面の表示設定を行う
             SetControlDisplaySetting();
@@ -455,7 +458,7 @@
         /// </summary>
         /// <param name="sender">センダーオブジェクト</param>
         /// <param name="e">イベントデータ</param>
-        private void BtRun_Click(object sender, EventArgs e)
+        private async void BtRun_Click(object sender, EventArgs e)
         {
             // プログレスバーをリセット
             ProgressBarCreateGif.Value = 0;
@@ -463,7 +466,7 @@
             // 画像データ格納フォルダが選択されているかチェック
             string imageDirectory = TxtImageDirectory.Text;
             if (string.IsNullOrWhiteSpace(imageDirectory)
-                || imageDirectory.Equals(_initializeImageDirectoryText))
+                || imageDirectory.Equals(initializeImageDirectoryText, StringComparison.Ordinal))
             {
                 // フォルダが選択されていない場合は、メッセージを表示し処理をしない
                 MessageBox.ShowAttention(this, Resources.CombineImagesDirectoryNotSelect);
@@ -485,7 +488,7 @@
             string gifFilePath = TxtAppendGif.Text;
             bool isAppendGif
                 = !string.IsNullOrWhiteSpace(gifFilePath)
-                && !gifFilePath.Equals(_initializeAppendGifText);
+                && !gifFilePath.Equals(initializeAppendGifText, StringComparison.Ordinal);
 
             // 追記を行う場合は、追記元のGifファイルが存在するかチェックを行う
             if (isAppendGif && !File.Exists(gifFilePath))
@@ -498,7 +501,8 @@
             // 追記を行わない場合は、ファイル保存ダイアログを開き、保存先のパスを設定する
             if (!isAppendGif)
             {
-                using (SaveFileDialog dialog = new SaveFileDialog())
+                SaveFileDialog dialog;
+                using (dialog = new SaveFileDialog())
                 {
                     // ファイル保存ダイアログ
                     dialog.Title = Resources.RunSaveFileDialogTitle;
@@ -521,11 +525,12 @@
 
                 // 保存先パスから拡張子情報を取得し、拡張子情報がgifの拡張子か判定する
                 string extension = Path.GetExtension(gifFilePath);
-                if (!extension.ToUpperInvariant().Equals(".gif".ToUpperInvariant()))
+                if (!extension.ToUpperInvariant().Equals(
+                    ".gif".ToUpperInvariant(), StringComparison.Ordinal))
                 {
                     // 拡張子がGifの形式でない場合、
                     // 生成したGifの保存先のパスに「.gif」の拡張子を追加する
-                    gifFilePath = gifFilePath + ".gif";
+                    gifFilePath += ".gif";
                 }
             }
 
@@ -540,30 +545,22 @@
 
             // 画像データ連結処理を実行（別タスクで実行）
             bool result = false;
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 result = Run(sortFilePaths, gifFilePath, isAppendGif);
-            })
-            .ContinueWith((task) =>
+            }).ConfigureAwait(true);
+
+            // 正常終了の場合、メッセージを表示する
+            if (result)
             {
-                // 処理結果を判定
-                if (task.Exception != null)
-                {
-                    // 例外が発生している場合
-                    ExceptionHandling.Error(task.Exception);
-                }
-                else if (result)
-                {
-                    // 正常終了の場合、メッセージを表示する
-                    MessageBox.ShowInfo(Resources.RunProcessEndMessage);
-                }
+                MessageBox.ShowInfo(Resources.RunProcessEndMessage);
+            }
 
-                // 実行中フラグを OFF にする
-                IsRuning = false;
+            // 実行中フラグを OFF にする
+            IsRuning = false;
 
-                // コントロールを有効にする
-                Invoke((MethodInvoker)(() => SetEnableForInputControl(true)));
-            });
+            // コントロールを有効にする
+            SetEnableForInputControl(true);
         }
 
         /// <summary>
@@ -592,7 +589,7 @@
         {
             // ループエリアの表示設定
             bool isAppendGif = !string.IsNullOrWhiteSpace(TxtAppendGif.Text)
-                && !TxtAppendGif.Text.Equals(_initializeAppendGifText);
+                && !TxtAppendGif.Text.Equals(initializeAppendGifText, StringComparison.Ordinal);
             bool isRoop = ChkRoop.Checked;
             PlRoop.Enabled = !isAppendGif;
             ChkRoop.Enabled = !isAppendGif;
@@ -687,7 +684,8 @@
                     // ・パスとして正しくない文字を含んで入る場合
                     // PathTooLongException
                     // ・指定したパスがシステム定義の最大長を超えている場合
-                    string message = Resources.CombineImagesDirectoryErrorIncorrectPath + "\r\n" + ex.Message;
+                    string message = Resources.CombineImagesDirectoryErrorIncorrectPath
+                        + "\r\n" + ex.Message;
                     MessageBox.ShowAttention(this, message);
                     return false;
                 }
@@ -702,7 +700,8 @@
                     // ・呼び出し元に、必要なアクセス許可がない場合
                     // IOException
                     // ・IOエラーが発生した場合
-                    string message = Resources.CombineImagesDirectoryErrorNotAccess + "\r\n" + ex.Message;
+                    string message = Resources.CombineImagesDirectoryErrorNotAccess
+                        + "\r\n" + ex.Message;
                     MessageBox.ShowAttention(this, message);
                     return false;
                 }
@@ -748,7 +747,8 @@
                 }
 
                 // Gifエンコーダー生成
-                using (GifEncoder gifEncoder = new GifEncoder(gifFilePath, isAppendGif, isRoop, roopCount))
+                GifEncoder gifEncoder;
+                using (gifEncoder = new GifEncoder(gifFilePath, isAppendGif, isRoop, roopCount))
                 {
                     // 都度都度保存する
                     gifEncoder.IsEachTimeSave = true;
@@ -770,14 +770,22 @@
                         }
 
                         // 読み込み可能な画像データのみ追加していく
-                        if (ImageTransform.TryImageLoad(imagePath, out Image image))
+                        Image image = null;
+                        try
                         {
-                            // 設定するディレイを計算
-                            delay = (GifEncoder.GifDelayUnit + remainder) / frameRate;
-                            remainder = (GifEncoder.GifDelayUnit + remainder) % frameRate;
+                            if (ImageTransform.TryImageLoad(imagePath, out image))
+                            {
+                                // 設定するディレイを計算
+                                delay = (GifEncoder.GifDelayUnit + remainder) / frameRate;
+                                remainder = (GifEncoder.GifDelayUnit + remainder) % frameRate;
 
-                            // 画像データをGifに追加
-                            gifEncoder.AddImage(image, (short)delay);
+                                // 画像データをGifに追加
+                                gifEncoder.AddImage(image, (short)delay);
+                            }
+                        }
+                        finally
+                        {
+                            image?.Dispose();
                         }
 
                         // 進捗を進める
