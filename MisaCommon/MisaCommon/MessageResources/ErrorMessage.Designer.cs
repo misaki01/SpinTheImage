@@ -151,15 +151,6 @@ namespace MisaCommon.MessageResources {
         }
         
         /// <summary>
-        ///   Gifのデータが破損しています。 に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string GifEncoderErrorDataBroken {
-            get {
-                return ResourceManager.GetString("GifEncoderErrorDataBroken", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Gifのエンコードに失敗しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string GifEncoderErrorEncodingFailed {

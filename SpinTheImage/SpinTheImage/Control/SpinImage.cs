@@ -480,7 +480,9 @@
                     paramName: nameof(frameRate),
                     actualValue: frameRate,
                     message: string.Format(
-                        CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionOrLess, 0));
+                        CultureInfo.InvariantCulture,
+                        CommonMessage.ArgumentOutOfRangeExceptionMessageFormatOrLess,
+                        0));
             }
             else if (movingAngleList == null)
             {
@@ -840,7 +842,9 @@
                     paramName: nameof(serialNum),
                     actualValue: serialNum,
                     message: string.Format(
-                        CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionOrLess, 0));
+                        CultureInfo.InvariantCulture,
+                        CommonMessage.ArgumentOutOfRangeExceptionMessageFormatOrLess,
+                        0));
             }
 
             // ファイル名生成

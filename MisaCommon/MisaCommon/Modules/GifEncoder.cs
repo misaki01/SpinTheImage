@@ -545,7 +545,9 @@
                     paramName: nameof(delay),
                     actualValue: delay,
                     message: string.Format(
-                        CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionLessThan, 0));
+                        CultureInfo.InvariantCulture,
+                        CommonMessage.ArgumentOutOfRangeExceptionMessageFormatLessThan,
+                        0));
             }
 
             // BitmapFrameを生成するために使用する、画像データ用のStreamを生成
@@ -974,7 +976,7 @@
                         actualValue: delay,
                         message: string.Format(
                             CultureInfo.InvariantCulture,
-                            CommonMessage.ArgumentOutOfRangeExceptionLessThan,
+                            CommonMessage.ArgumentOutOfRangeExceptionMessageFormatLessThan,
                             0));
                 }
 

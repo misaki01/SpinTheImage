@@ -72,36 +72,36 @@ namespace MisaCommon.Utility {
         /// <summary>
         ///   この引数は {0} 未満の値にできません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string ArgumentOutOfRangeExceptionLessThan {
+        public static string ArgumentOutOfRangeExceptionMessageFormatLessThan {
             get {
-                return ResourceManager.GetString("ArgumentOutOfRangeExceptionLessThan", resourceCulture);
+                return ResourceManager.GetString("ArgumentOutOfRangeExceptionMessageFormatLessThan", resourceCulture);
             }
         }
         
         /// <summary>
         ///   この引数は {0} を超えた値にできません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string ArgumentOutOfRangeExceptionMoreThan {
+        public static string ArgumentOutOfRangeExceptionMessageFormatMoreThan {
             get {
-                return ResourceManager.GetString("ArgumentOutOfRangeExceptionMoreThan", resourceCulture);
+                return ResourceManager.GetString("ArgumentOutOfRangeExceptionMessageFormatMoreThan", resourceCulture);
             }
         }
         
         /// <summary>
         ///   この引数は {0} 以下の値にできません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string ArgumentOutOfRangeExceptionOrLess {
+        public static string ArgumentOutOfRangeExceptionMessageFormatOrLess {
             get {
-                return ResourceManager.GetString("ArgumentOutOfRangeExceptionOrLess", resourceCulture);
+                return ResourceManager.GetString("ArgumentOutOfRangeExceptionMessageFormatOrLess", resourceCulture);
             }
         }
         
         /// <summary>
         ///   この引数は {0} 以上の値にできません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static string ArgumentOutOfRangeExceptionOrMore {
+        public static string ArgumentOutOfRangeExceptionMessageFormatOrMore {
             get {
-                return ResourceManager.GetString("ArgumentOutOfRangeExceptionOrMore", resourceCulture);
+                return ResourceManager.GetString("ArgumentOutOfRangeExceptionMessageFormatOrMore", resourceCulture);
             }
         }
     }

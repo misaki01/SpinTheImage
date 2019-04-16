@@ -78,7 +78,9 @@
                     paramName: nameof(frameRate),
                     actualValue: frameRate,
                     message: string.Format(
-                        CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionOrLess, 0));
+                        CultureInfo.InvariantCulture,
+                        CommonMessage.ArgumentOutOfRangeExceptionMessageFormatOrLess,
+                        0));
             }
 
             FrameRate = frameRate;
@@ -175,7 +177,9 @@
                     paramName: nameof(frameRate),
                     actualValue: frameRate,
                     message: string.Format(
-                        CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionOrLess, 0));
+                        CultureInfo.InvariantCulture,
+                        CommonMessage.ArgumentOutOfRangeExceptionMessageFormatOrLess,
+                        0));
             }
             else if (second <= 0)
             {
@@ -183,7 +187,9 @@
                     paramName: nameof(second),
                     actualValue: second,
                     message: string.Format(
-                        CultureInfo.InvariantCulture, CommonMessage.ArgumentOutOfRangeExceptionOrLess, 0));
+                        CultureInfo.InvariantCulture,
+                        CommonMessage.ArgumentOutOfRangeExceptionMessageFormatOrLess,
+                        0));
             }
 
             // 生成するリストを生成

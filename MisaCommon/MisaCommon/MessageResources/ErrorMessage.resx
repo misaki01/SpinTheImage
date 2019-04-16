@@ -162,10 +162,6 @@
     <value>この引数はGifの単一のフレームデータとして不正なデータです。（不正な末端データ）</value>
     <comment>Gifエンコーダの処理にて、Gifの単一のフレームデータの引数に設定されたデータが不正なデータの場合のメッセージ（不正な末端データ）</comment>
   </data>
-  <data name="GifEncoderErrorDataBroken" xml:space="preserve">
-    <value>Gifのデータが破損しています。</value>
-    <comment>Gifエンコーダの処理にて、Gifデータが不正な値になっている場合のメッセージ</comment>
-  </data>
   <data name="GifEncoderErrorEncodingFailed" xml:space="preserve">
     <value>Gifのエンコードに失敗しました。</value>
     <comment>Gifエンコーダの処理にて、Gifのエンコードに失敗した場合のメッセージ</comment>
